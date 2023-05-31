@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/socialmediadb
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  resources:
+    static-locations: upload
+
+security:
+  jwt:
+    secret: YXNkZ2Znc3Noc2ZnaGZoZ2ZoZGZzZGFnaHNmZDM0MzV5Zw==
+    access: 3600000
+    refresh: 2592000000
