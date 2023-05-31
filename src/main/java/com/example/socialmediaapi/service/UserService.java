@@ -35,15 +35,10 @@ public class UserService {
     public void updateUser(Long id, UserDto userDto) {
         User userFromMemory = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User with this id does not exist"));
-        if (userDto.getUsername() != null) {
-            userFromMemory.setUsername(userDto.getUsername());
-        }
-        if (userDto.getEmail() != null) {
-            userFromMemory.setEmail(userDto.getEmail());
-        }
-        if (userDto.getPassword() != null) {
-            userFromMemory.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        }
+
+        userFromMemory.setUsername(userDto.getUsername());
+        userFromMemory.setEmail(userDto.getEmail());
+        userFromMemory.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepository.save(userFromMemory);
     }
 
