@@ -37,7 +37,7 @@ public class FriendshipRequestService {
     }
 
     @Transactional
-    public void sentFriendRequest(Long id, Long receiverId) {
+    public void sendFriendRequest(Long id, Long receiverId) {
         if (id.equals(receiverId)) {
             throw new IllegalArgumentException("It's a same user");
         }

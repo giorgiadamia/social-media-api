@@ -7,6 +7,8 @@ import com.example.socialmediaapi.web.dto.auth.JwtRequest;
 import com.example.socialmediaapi.web.dto.auth.JwtResponse;
 import com.example.socialmediaapi.web.dto.UserDto;
 import com.example.socialmediaapi.web.mappers.UserMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @Validated
+@Tag(name = "Auth Controller", description = "Auth API")
 public class AuthController {
 
     private final AuthService authService;
@@ -27,17 +30,20 @@ public class AuthController {
     private final UserMapper userMapper;
 
     @PostMapping("/login")
+    @Operation(summary = "Login")
     public JwtResponse login(@Valid @RequestBody JwtRequest loginRequest) {
         return authService.login(loginRequest);
     }
 
     @PostMapping("/register")
+    @Operation(summary = "Register")
     public void register(@Valid @RequestBody UserDto userDto) {
         User user = userMapper.toEntity(userDto);
         userService.createUser(user);
     }
 
     @PostMapping("/refresh")
+    @Operation(summary = "Refresh token")
     public JwtResponse refresh(@RequestBody String refreshToken) {
         return authService.refresh(refreshToken);
     }

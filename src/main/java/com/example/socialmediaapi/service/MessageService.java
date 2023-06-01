@@ -3,7 +3,7 @@ package com.example.socialmediaapi.service;
 import com.example.socialmediaapi.domain.Message;
 import com.example.socialmediaapi.domain.User;
 import com.example.socialmediaapi.repository.MessageRepository;
-import com.example.socialmediaapi.web.dto.MessageDto;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ public class MessageService {
     private final UserService userService;
 
     @Transactional
-    public void sentMessage(Long id, Long receiverId, MessageDto messageDto) {
+    public void sendMessage(Long id, Long receiverId, @NotNull String text) {
         if (id.equals(receiverId)) {
             throw new IllegalArgumentException("It's the same user");
         }
@@ -34,7 +34,7 @@ public class MessageService {
         Message message = new Message();
         message.setSender(sender);
         message.setReceiver(receiver);
-        message.setText(messageDto.getText());
+        message.setText(text);
 
         messageRepository.save(message);
     }
