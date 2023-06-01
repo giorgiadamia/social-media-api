@@ -1,4 +1,4 @@
-package com.example.socialmediaapi.web.dto.user;
+package com.example.socialmediaapi.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;

@@ -2,7 +2,7 @@ package com.example.socialmediaapi.web.controller;
 
 import com.example.socialmediaapi.domain.User;
 import com.example.socialmediaapi.service.FriendshipRequestService;
-import com.example.socialmediaapi.web.dto.user.UserDto;
+import com.example.socialmediaapi.web.dto.UserDto;
 import com.example.socialmediaapi.web.jwt.JwtEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

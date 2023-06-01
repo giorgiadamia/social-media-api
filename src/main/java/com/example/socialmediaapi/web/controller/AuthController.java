@@ -5,7 +5,7 @@ import com.example.socialmediaapi.service.AuthService;
 import com.example.socialmediaapi.service.UserService;
 import com.example.socialmediaapi.web.dto.auth.JwtRequest;
 import com.example.socialmediaapi.web.dto.auth.JwtResponse;
-import com.example.socialmediaapi.web.dto.user.UserDto;
+import com.example.socialmediaapi.web.dto.UserDto;
 import com.example.socialmediaapi.web.mappers.UserMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

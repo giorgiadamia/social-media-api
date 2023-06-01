@@ -2,7 +2,7 @@ package com.example.socialmediaapi.service;
 
 import com.example.socialmediaapi.domain.Post;
 import com.example.socialmediaapi.repository.PostRepository;
-import com.example.socialmediaapi.web.dto.post.PostDto;
+import com.example.socialmediaapi.web.dto.PostDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

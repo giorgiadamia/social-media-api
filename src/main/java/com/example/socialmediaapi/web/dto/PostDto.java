@@ -1,4 +1,4 @@
-package com.example.socialmediaapi.web.dto.post;
+package com.example.socialmediaapi.web.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

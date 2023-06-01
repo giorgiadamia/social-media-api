@@ -1,7 +1,7 @@
 package com.example.socialmediaapi.web.mappers;
 
 import com.example.socialmediaapi.domain.Post;
-import com.example.socialmediaapi.web.dto.post.PostDto;
+import com.example.socialmediaapi.web.dto.PostDto;
 import org.mapstruct.Mapper;
 
 import java.util.List;

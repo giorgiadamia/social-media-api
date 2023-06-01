@@ -5,7 +5,7 @@ import com.example.socialmediaapi.domain.FriendshipStatus;
 import com.example.socialmediaapi.domain.User;
 import com.example.socialmediaapi.repository.FriendshipRequestRepository;
 import com.example.socialmediaapi.repository.UserRepository;
-import com.example.socialmediaapi.web.dto.user.UserDto;
+import com.example.socialmediaapi.web.dto.UserDto;
 import com.example.socialmediaapi.web.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

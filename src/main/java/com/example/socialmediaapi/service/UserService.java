@@ -3,7 +3,7 @@ package com.example.socialmediaapi.service;
 import com.example.socialmediaapi.domain.Role;
 import com.example.socialmediaapi.domain.User;
 import com.example.socialmediaapi.repository.UserRepository;
-import com.example.socialmediaapi.web.dto.user.UserDto;
+import com.example.socialmediaapi.web.dto.UserDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

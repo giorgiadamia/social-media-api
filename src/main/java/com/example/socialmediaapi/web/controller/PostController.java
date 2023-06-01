@@ -2,7 +2,7 @@ package com.example.socialmediaapi.web.controller;
 
 import com.example.socialmediaapi.domain.Post;
 import com.example.socialmediaapi.service.PostService;
-import com.example.socialmediaapi.web.dto.post.PostDto;
+import com.example.socialmediaapi.web.dto.PostDto;
 import com.example.socialmediaapi.web.jwt.JwtEntity;
 import com.example.socialmediaapi.web.mappers.PostMapper;
 import jakarta.validation.Valid;

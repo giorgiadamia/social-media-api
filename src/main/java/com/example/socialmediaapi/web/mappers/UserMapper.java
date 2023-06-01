@@ -1,7 +1,7 @@
 package com.example.socialmediaapi.web.mappers;
 
 import com.example.socialmediaapi.domain.User;
-import com.example.socialmediaapi.web.dto.user.UserDto;
+import com.example.socialmediaapi.web.dto.UserDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
