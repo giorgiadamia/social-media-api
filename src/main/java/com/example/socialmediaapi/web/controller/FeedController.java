@@ -5,6 +5,7 @@ import com.example.socialmediaapi.service.FeedService;
 import com.example.socialmediaapi.web.dto.PostDto;
 import com.example.socialmediaapi.web.jwt.JwtEntity;
 import com.example.socialmediaapi.web.mappers.PostMapper;
+import com.example.socialmediaapi.web.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,6 +25,7 @@ public class FeedController {
     private final FeedService feedService;
 
     private final PostMapper postMapper;
+    private final UserMapper userMapper;
 
     @GetMapping
     public List<PostDto> getFeed(
@@ -32,6 +35,13 @@ public class FeedController {
             @RequestParam(defaultValue = "DESC") Sort.Direction direction
     ) {
         List<Post> posts = feedService.getFeed(user.getId(), page, size, direction);
-        return postMapper.toDto(posts);
+        List<PostDto> postDtos = new ArrayList<>();
+
+        for (Post post: posts) {
+            PostDto postDto = postMapper.toDto(post);
+            postDto.setUser(userMapper.toDto(post.getUser()));
+            postDtos.add(postDto);
+        }
+        return postDtos;
     }
 }
