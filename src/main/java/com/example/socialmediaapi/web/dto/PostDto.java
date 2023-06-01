@@ -17,4 +17,5 @@ public class PostDto {
     private String text;
 
     private String image;
+    private UserDto user;
 }

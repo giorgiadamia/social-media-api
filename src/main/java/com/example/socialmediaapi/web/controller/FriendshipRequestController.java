@@ -4,11 +4,12 @@ import com.example.socialmediaapi.domain.User;
 import com.example.socialmediaapi.service.FriendshipRequestService;
 import com.example.socialmediaapi.web.dto.UserDto;
 import com.example.socialmediaapi.web.jwt.JwtEntity;
+import com.example.socialmediaapi.web.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/friends")
@@ -17,14 +18,18 @@ public class FriendshipRequestController {
 
     private final FriendshipRequestService friendshipRequestService;
 
+    private final UserMapper userMapper;
+
     @GetMapping
-    public Set<User> getFriends(@AuthenticationPrincipal JwtEntity user) {
+    public List<User> getFriends(@AuthenticationPrincipal JwtEntity user) {
         return friendshipRequestService.getFriends(user.getId());
     }
 
     @GetMapping("/followings")
-    public Set<UserDto> getFollowings(@AuthenticationPrincipal JwtEntity user) {
-        return friendshipRequestService.getFollowings(user.getId());
+    public List<UserDto> getFollowings(@AuthenticationPrincipal JwtEntity user) {
+
+        List<User> followings = friendshipRequestService.getFollowings(user.getId());
+        return userMapper.toDto(followings);
     }
 
     @PostMapping("/{receiverId}")
@@ -49,5 +54,11 @@ public class FriendshipRequestController {
     public void deleteFriend(@AuthenticationPrincipal JwtEntity user,
                              @PathVariable Long friendId) {
         friendshipRequestService.deleteFriend(user.getId(), friendId);
+    }
+
+    @DeleteMapping("/unfollow/{receiverId}")
+    public void unfollow(@AuthenticationPrincipal JwtEntity user,
+                         @PathVariable Long receiverId) {
+        friendshipRequestService.unfollow(user.getId(), receiverId);
     }
 }

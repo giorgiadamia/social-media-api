@@ -5,14 +5,12 @@ import com.example.socialmediaapi.domain.FriendshipStatus;
 import com.example.socialmediaapi.domain.User;
 import com.example.socialmediaapi.repository.FriendshipRequestRepository;
 import com.example.socialmediaapi.repository.UserRepository;
-import com.example.socialmediaapi.web.dto.UserDto;
-import com.example.socialmediaapi.web.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,20 +21,19 @@ public class FriendshipRequestService {
     private final UserRepository userRepository;
 
     private final UserService userService;
-    private final UserMapper userMapper;
 
     @Transactional
-    public Set<User> getFriends(Long id) {
+    public List<User> getFriends(Long id) {
         User userFromMemory = userService.getUserById(id);
         return userFromMemory.getFriends();
     }
 
     @Transactional
-    public Set<UserDto> getFollowings(Long id) {
+    public List<User> getFollowings(Long id) {
         User user = userService.getUserById(id);
         return user.getSentFriendshipRequests().stream()
-                .map(request -> userMapper.toDto(request.getReceiver()))
-                .collect(Collectors.toSet());
+                .map(FriendshipRequest::getReceiver)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -85,10 +82,16 @@ public class FriendshipRequestService {
         friendshipRequest.setReceiver(receiver);
         friendshipRequest.setSender(sender);
 
+        FriendshipRequest friendshipAcceptedRequest = new FriendshipRequest();
+        friendshipAcceptedRequest.setStatus(FriendshipStatus.ACCEPTED);
+        friendshipAcceptedRequest.setSender(receiver);
+        friendshipAcceptedRequest.setReceiver(sender);
+
         sender.getFriends().add(receiver);
         receiver.getFriends().add(sender);
 
         friendshipRequestRepository.save(friendshipRequest);
+        friendshipRequestRepository.save(friendshipAcceptedRequest);
         userRepository.save(sender);
         userRepository.save(receiver);
     }
@@ -140,8 +143,37 @@ public class FriendshipRequestService {
         FriendshipRequest friendshipRequest = friendshipRequestOptional.get();
         friendshipRequest.setStatus(FriendshipStatus.DENIED);
 
+        Optional<FriendshipRequest> friendshipRequestRejectOptional = friendshipRequestRepository
+                .findFriendshipRequestBySenderAndReceiver(user, friend);
+
+        if (friendshipRequestRejectOptional.isEmpty()) {
+            throw new IllegalCallerException("It is not user's follower");
+        }
+
+        friendshipRequestRepository.delete(friendshipRequestRejectOptional.get());
         friendshipRequestRepository.save(friendshipRequest);
         userRepository.save(user);
         userRepository.save(friend);
+    }
+
+    public void unfollow(Long id, Long receiverId) {
+        if (id.equals(receiverId)) {
+            throw new IllegalArgumentException("It's a same user");
+        }
+
+        User user = userService.getUserById(id);
+        User receiver = userService.getUserById(receiverId);
+
+        if (user.getFriends().contains(receiver)) {
+            throw new IllegalArgumentException("These users are friends");
+        }
+
+        Optional<FriendshipRequest> friendshipRequestOptional = friendshipRequestRepository
+                .findFriendshipRequestBySenderAndReceiver(user, receiver);
+
+        if (friendshipRequestOptional.isEmpty()) {
+            throw new IllegalCallerException("It is not user's follower");
+        }
+        friendshipRequestRepository.delete(friendshipRequestOptional.get());
     }
 }
