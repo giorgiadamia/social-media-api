@@ -158,7 +158,7 @@ public class FriendshipRequestService {
 
     public void unfollow(Long id, Long receiverId) {
         if (id.equals(receiverId)) {
-            throw new IllegalArgumentException("It's a same user");
+            throw new IllegalStateException("It's a same user");
         }
 
         User user = userService.getUserById(id);

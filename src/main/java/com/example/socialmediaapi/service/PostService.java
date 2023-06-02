@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -81,10 +78,10 @@ public class PostService {
                 folder.mkdir();
             }
 
-            Path targetPath = Path.of(uploadPath, resultFilename);
+            File targetFile = new File(uploadPath + File.separator + resultFilename);
 
             try {
-                Files.copy(file.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+                targetFile.createNewFile();
                 post.setImage(resultFilename);
             } catch (IOException e) {
                 throw new RuntimeException(e);

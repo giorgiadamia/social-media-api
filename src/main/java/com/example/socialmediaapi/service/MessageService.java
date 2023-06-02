@@ -39,6 +39,7 @@ public class MessageService {
         messageRepository.save(message);
     }
 
+    @Transactional(readOnly = true)
     public List<Message> getMessages(Long id) {
         User sender = userService.getUserById(id);
         return messageRepository.findMessagesBySender(sender);

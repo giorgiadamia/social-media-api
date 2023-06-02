@@ -40,10 +40,10 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
-    private List<FriendshipRequest> sentFriendshipRequests;
+    private List<FriendshipRequest> sentFriendshipRequests = new ArrayList<>();
 
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
-    private List<FriendshipRequest> receivedFriendshipRequests;
+    private List<FriendshipRequest> receivedFriendshipRequests = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -51,5 +51,5 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
-    private List<User> friends;
+    private List<User> friends = new ArrayList<>();
 }
