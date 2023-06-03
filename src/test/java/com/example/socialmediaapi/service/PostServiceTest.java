@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -35,8 +35,8 @@ class PostServiceTest {
     private final static String filePath = "src" + File.separator + "test" + File.separator +
             "resources" + File.separator + "testImages";
 
-    private final static String uploadPath = "src" + File.separator + "test" + File.separator +
-            "resources" + File.separator + "testUpload";
+    @Value("${spring.resources.static-locations}")
+    private String uploadPath;
 
     @BeforeEach
     public void setUp() {
@@ -169,7 +169,7 @@ class PostServiceTest {
     }
 
     @Test
-    public void testCreatePost() throws NoSuchFieldException, IllegalAccessException {
+    public void testCreatePost() {
         Long userId = 1L;
         String imageFileName = filePath + File.separator + "image.jpeg";
         String title = "postTitle";
@@ -181,10 +181,6 @@ class PostServiceTest {
         post.setImage(imageFileName);
 
         when(postRepository.save(post)).thenReturn(post);
-
-        Field uploadPathField = PostService.class.getDeclaredField("uploadPath");
-        uploadPathField.setAccessible(true);
-        uploadPathField.set(postService, uploadPath);
 
         postService.createPost(post, userId);
 
