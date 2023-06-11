@@ -1,51 +1,51 @@
-### Цель проекта: 
-Разработать RESTful API для социальной медиа платформы, позволяющей пользователям регистрироваться, входить в систему, создавать посты, переписываться, подписываться на других пользователей и получать свою ленту активности. 
+### Objective of the project: 
+Develop a RESTful API for a social media platform that allows users to register, log in, create posts, chat, follow other users and get their activity feed.
+### Requirements: 
+#### 1.  Authentication and Authorization: 
+- Users can register by providing a username, email and password. 
+- Users can sign in by providing the correct credentials.
+- The API must protect the privacy of user data, including password hashing and the use of JWTs.
 
-### Требования: 
-#### 1.  Аутентификация и авторизация: 
-- Пользователи могут зарегистрироваться, указав имя пользователя, электронную почту и пароль. 
-- Пользователи могут войти в систему, предоставив правильные учетные данные. 
-- API должен обеспечивать защиту конфиденциальности пользовательских данных, включая хэширование паролей и использование JWT.
+#### 2. Post management: 
+ - Users can create new posts by providing text, a title, and attaching images.
+ - Users can view posts by other users. 
+ - Users can update and delete their own posts. 
 
-#### 2. Управление постами: 
- - Пользователи могут создавать новые посты, указывая текст, заголовок и прикрепляя изображения.
- - Пользователи могут просматривать посты других пользователей. - Пользователи могут обновлять и удалять свои собственные посты. 
+#### 3. Users interaction: 
+- Users can send friend requests to other users. From this moment, the user who sent the request remains a subscriber until he unsubscribes himself. If the user who received the request accepts it, both users become friends. If rejected, then the user who sent the application, as indicated earlier, still remains a subscriber. 
+- Users who are friends are also followers of each other. 
+- If one of the friends removes another from friends, then he also unsubscribes. The second user must remain a subscriber.
+- Friends can write messages to each other (implementation of the chat is not needed, users can request correspondence using a request)
 
-#### 3. Взаимодействие пользователей: 
-- Пользователи могут отправлять заявки в друзья другим пользователям. С этого момента, пользователь, отправивший заявку, остается подписчиком до тех пор, пока сам не откажется от подписки. Если пользователь, получивший заявку, принимает ее, оба пользователя становятся друзьями. Если отклонит, то пользователь, отправивший заявку, как и указано ранее, все равно остается подписчиком. 
-- Пользователи, являющиеся друзьями, также являются подписчиками друг на друга. 
-- Если один из друзей удаляет другого из друзей, то он также отписывается. Второй пользователь при этом должен остаться подписчиком.
-- Друзья могут писать друг другу сообщения (реализация чата не нужна, пользователи могу запросить переписку с помощью запрос а) 
+#### 4. Subscriptions and activity feed: 
+- The user's activity feed should display the latest posts from the users they follow.
+-  
 
-#### 4. Подписки и лента активности: 
-- Лента активности пользователя должна отображать последние посты от пользователей, на которых он подписан.
-- Лента активности должна поддерживать пагинацию и сортировку по времени создания постов. 
+#### 5. Error processing: 
+- The API should handle and return understandable error messages for bad requests or internal server problems.
+- The API should validate the entered data and return informative messages if the format is incorrect. 
 
-#### 5. Обработка ошибок: 
-- API должно обрабатывать и возвращать понятные сообщения об ошибках при неправильном запросе или внутренних проблемах сервера.
-- API должно осуществлять валидацию введенных данных и возвращать информативные сообщения при неправильном формате. 
-
-#### 6. Документация API: 
-- API должно быть хорошо задокументировано с использованием инструментов, таких как Swagger или OpenAPI.
-- Документация должна содержать описания доступных эндпоинтов, форматы запросов и ответов, а также требования к аутентификации. 
-
-
-### Технологии и инструменты: 
-- Язык программирования: Java 
-- Фреймворк: Spring (рекомендуется использовать Spring Boot)
-- База данных: Рекомендуется использовать PostgreSQL или MySQL
-- Аутентификация и авторизация: Spring Security 
-- Документация API: Swagger или OpenAPI 
+#### 6. API Documentation: 
+- The API should be well documented using tools like Swagger or OpenAPI.
+- The documentation should contain descriptions of available endpoints, request and response formats, and authentication requirements. 
 
 
-### Ожидаемые результаты:
-- Разработанное RESTful API, способное выполнять указанные требования. 
-- Код проекта, хорошо структурированный и документированный. 
-- Тесты, покрывающие основные функциональные возможности API. 
-- Документация API, описывающая доступные эндпоинты и их использование. 
+### Technologies and tools: 
+- Programming language: Java 
+- Framework: Spring (Spring Boot is recommended)
+- Database: Recommended to use PostgreSQL or MySQL
+- Authentication and Authorization: Spring Security 
+- API documentation: Swagger or OpenAPI
 
 
-#### Некоторые факторы, влияющие на оценку: 
-- Полнота соблюдения требований;
-- Масштабируемость кода и соблюдение важных принципов разработки; 
-- Читаемость кода.
+### Expected results:
+- A RESTful API developed that can fulfill the specified requirements. 
+- Well-structured and documented project code. 
+- Tests covering the core functionality of the API. 
+- API documentation describing available endpoints and their usage.
+
+
+#### Some Factors Affecting the Rating: 
+- Completeness of compliance with the requirements;
+- Code scalability and adherence to important development principles; 
+- Code readability.
