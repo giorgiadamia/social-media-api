@@ -1,3 +1,12 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/socialmediadbtest
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
   resources:
     static-locations: src/test/resources/testUpload
